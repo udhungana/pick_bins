@@ -26,6 +26,11 @@ const Rootnavigation = ({ navigation }) => (
       component={DashScreen}
       options={{ headerLeft: null, headerShown: false }}
     />
+    <RootStack.Screen
+      name="Pickup"
+      component={Pickup}
+      options={{ headerLeft: null, headerShown: false }}
+    />
     {/* <RootStack.Screen name="Dashboard" component={Dashboard} />
     <RootStack.Screen name="Pickup" component={Pickup} />
     <RootStack.Screen name="Support" component={Support} />

@@ -10,7 +10,7 @@ import Account from "./Account";
 
 const Tab = createMaterialBottomTabNavigator();
 
-const DashScreen = (props) => {
+const DashScreen = () => {
   <View style={styles.container}>
     <Text>DashScreen</Text>
   </View>;
