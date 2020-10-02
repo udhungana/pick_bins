@@ -9,6 +9,7 @@ import Dashboard from "./Dashboard";
 import Pickup from "./Pickup";
 import Support from "./Support";
 import Account from "./Account";
+import DriverScreen from "./DriverScreen";
 
 const RootStack = createStackNavigator();
 
@@ -31,6 +32,7 @@ const Rootnavigation = ({ navigation }) => (
       component={Pickup}
       options={{ headerLeft: null, headerShown: false }}
     />
+    <RootStack.Screen name="DriverScreen" component={DriverScreen} />
     {/* <RootStack.Screen name="Dashboard" component={Dashboard} />
     <RootStack.Screen name="Pickup" component={Pickup} />
     <RootStack.Screen name="Support" component={Support} />

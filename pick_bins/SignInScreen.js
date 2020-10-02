@@ -15,11 +15,13 @@ const SignInScreen = ({ navigation }) => {
 
   const handleSubmit = (event) => {
     //alert('Email: ' + email + '  password: ' + password);
-    // if (email == "e" && password == "p") {
-    navigation.navigate("DashScreen");
-    // } else {
-    //   alert("Incorrect    : Email: " + email + "  password: " + password);
-    // }
+    if (email == "e@driver" && password == "p") {
+      navigation.navigate("DriverScreen");
+    } else if (email == "e@user" && password == "p") {
+      navigation.navigate("DashScreen");
+    } else {
+      alert("Incorrect    : Email: " + email + "  password: " + password);
+    }
   };
 
   return (
