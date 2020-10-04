@@ -22,6 +22,7 @@
     "react-dom": "~16.11.0",
     "react-hook-form": "^6.8.4",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
+    "react-native-appearance": "^0.3.4",
     "react-native-dropdown-picker": "^3.6.8",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-paper": "^4.2.0",
@@ -31,7 +32,7 @@
     "react-native-tab-view": "^2.15.1",
     "react-native-table-component": "^1.2.1",
     "react-native-vector-icons": "^7.1.0",
-    "react-native-web": "~0.11.7",
+    "react-native-web": "^0.11.7",
     "react-navigation-fluid-transitions": "^0.3.2",
     "react-select": "^3.1.0",
     "react-select-country-list": "^2.2.1"
