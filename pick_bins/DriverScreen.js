@@ -30,10 +30,6 @@ const DriverScreen = ({ navigation }) => {
   var completedT = 4;
   var remainingT = 2;
 
-  var totalTask = ["Total Task:", totalT];
-  var completedTask = ["Completed:", completedT];
-  var remainingTask = ["Total Task:", remainingT];
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ flex: 0.95, marginBottom: 30, backgroundColor: "white" }}>
@@ -137,13 +133,13 @@ const DriverScreen = ({ navigation }) => {
         <Card style={styles.cardDesign}>
           <View style={{ alignItems: "center", justifyContent: "center" }}>
             <Text style={styles.textDesign}>
-              Total Task: {"\t\t"} {totalT}
+              Total Task: {"\t\t\t"} {totalT}
             </Text>
             <Text style={styles.textDesign}>
-              Completed: {"\t\t"} {completedT}
+              Completed: {"\t\t\t"} {completedT}
             </Text>
             <Text style={styles.textDesign}>
-              Remaining: {"\t\t"} {remainingT}
+              Remaining: {"\t\t\t"} {remainingT}
             </Text>
           </View>
 
@@ -196,6 +192,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 13,
     fontWeight: "bold",
+    margin: 5,
   },
   box: {
     height: 30,

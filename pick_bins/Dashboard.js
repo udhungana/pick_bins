@@ -23,7 +23,9 @@ const Dashboard = ({ navigation }) => {
 
   var dateLine = "September 20";
   var timeLine = "5 pm";
-  var locationLine = "1000 Courtside Dr. Irving Tx";
+  var locationLine = "1000 Courtside Dr.";
+  var city = "Irving";
+  var state = " Tx";
 
   const handleSubmit = () => {
     navigation.navigate("Pickup");
@@ -40,37 +42,58 @@ const Dashboard = ({ navigation }) => {
       </Text>
       <Card style={styles.cardDesign}>
         {/* add date,time and location variables */}
-        <View style={{ alignItems: "center", justifyContent: "center" }}>
-          <Text style={styles.textDesign}>
-            Date: {"\t\t"} {dateLine}
-          </Text>
-          <Text style={styles.textDesign}>
-            Time: {"\t\t"} {timeLine}
-          </Text>
-          <Text style={styles.textDesign}>
-            Location: {"\t\t"} {locationLine}
-          </Text>
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "flex-start",
+            flexDirection: "row",
+            height: 50,
+          }}
+        >
+          <Text style={styles.textDesign}>Date:</Text>
+          <Text style={styles.rightMargin}>{dateLine}</Text>
         </View>
-        {/* <Table>
-          <TableWrapper>
-            <Row
-              data={dateLine}
-              style={styles.box}
-              textStyle={styles.textDesign}
-            />
-            <Row
-              data={timeLine}
-              style={styles.box}
-              textStyle={styles.textDesign}
-            />
-            <Row
-              data={locationLine}
-              style={styles.box}
-              textStyle={styles.textDesign}
-            />
-          </TableWrapper>
-        </Table> */}
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "flex-start",
+            flexDirection: "row",
+            height: 50,
+          }}
+        >
+          <Text style={styles.textDesign}>Time:</Text>
+          <Text style={styles.rightMargin}> {timeLine}</Text>
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "flex-start",
+              flexDirection: "row",
+              height: 50,
+              flexWrap: "wrap",
+            }}
+          >
+            <Text style={styles.textDesign}>Location:</Text>
+          </View>
+          <View style={{ flexDirection: "row", textAlign: "justify" }}>
+            <Text
+              style={{
+                marginLeft: 40,
+                flexWrap: "wrap",
+                textAlign: "justify",
+              }}
+            >
+              {locationLine}
+              {"\n"}
+              {city}
+              {", "}
+              {state}
+            </Text>
+          </View>
+        </View>
       </Card>
+
       <View style={{ flex: 0.2, alignItems: "center" }}>
         <Text
           style={{
@@ -122,7 +145,7 @@ const styles = StyleSheet.create({
     flex: 0.3,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     padding: 24,
     margin: 30,
     flexWrap: "wrap",
@@ -131,6 +154,9 @@ const styles = StyleSheet.create({
     textAlign: "left",
     fontSize: 15,
     fontWeight: "bold",
+  },
+  rightMargin: {
+    marginLeft: 70,
   },
   box: {
     height: 50,

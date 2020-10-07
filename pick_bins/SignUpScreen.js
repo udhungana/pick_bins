@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import DropDownPicker from "react-native-dropdown-picker";
+// import DropDownPicker from "react-native-dropdown-picker";
 import countryList from "react-select-country-list";
 
 const SignUpScreen = ({ navigation }) => {
@@ -63,7 +63,7 @@ const SignUpScreen = ({ navigation }) => {
           keyboardType="numeric"
           onChangeText={(val) => setZipCode(val)}
         />
-        <DropDownPicker
+        {/* <DropDownPicker
           items={options}
           containerStyle={{
             height: 60,
@@ -76,7 +76,7 @@ const SignUpScreen = ({ navigation }) => {
           dropDownStyle={{ backgroundColor: "#fafafa" }}
           placeholder="USA"
           onChangeItem={(item) => setSelectedCountry(item)}
-        />
+        /> */}
         <TextInput
           style={styles.input}
           placeholder="Phone Number*"
