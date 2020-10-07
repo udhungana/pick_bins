@@ -2,24 +2,28 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card } from "react-native-paper";
-import {
-  Table,
-  TableWrapper,
-  Row,
-  Rows,
-  Col,
-  Cols,
-  Cell,
-} from "react-native-table-component";
+// import {
+//   Table,
+//   TableWrapper,
+//   Row,
+//   Rows,
+//   Col,
+//   Cols,
+//   Cell,
+// } from "react-native-table-component";
 
 const Dashboard = ({ navigation }) => {
-  const [dateLine, setDateLine] = useState(["Date", "September 20"]);
-  // change data from varibale instead
-  const [timeLine, setTimeLine] = useState(["Time", "5 pm"]);
-  const [locationLine, setLocationLine] = useState([
-    "Location",
-    "1000 Courtside Dr. Irving Tx",
-  ]);
+  // const [dateLine, setDateLine] = useState(["Date", "September 20"]);
+  // // change data from varibale instead
+  // const [timeLine, setTimeLine] = useState(["Time", "5 pm"]);
+  // const [locationLine, setLocationLine] = useState([
+  //   "Location",
+  //   "1000 Courtside Dr. Irving Tx",
+  // ]);
+
+  var dateLine = "September 20";
+  var timeLine = "5 pm";
+  var locationLine = "1000 Courtside Dr. Irving Tx";
 
   const handleSubmit = () => {
     navigation.navigate("Pickup");
@@ -36,7 +40,18 @@ const Dashboard = ({ navigation }) => {
       </Text>
       <Card style={styles.cardDesign}>
         {/* add date,time and location variables */}
-        <Table>
+        <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <Text style={styles.textDesign}>
+            Date: {"\t\t"} {dateLine}
+          </Text>
+          <Text style={styles.textDesign}>
+            Time: {"\t\t"} {timeLine}
+          </Text>
+          <Text style={styles.textDesign}>
+            Location: {"\t\t"} {locationLine}
+          </Text>
+        </View>
+        {/* <Table>
           <TableWrapper>
             <Row
               data={dateLine}
@@ -54,7 +69,7 @@ const Dashboard = ({ navigation }) => {
               textStyle={styles.textDesign}
             />
           </TableWrapper>
-        </Table>
+        </Table> */}
       </Card>
       <View style={{ flex: 0.2, alignItems: "center" }}>
         <Text

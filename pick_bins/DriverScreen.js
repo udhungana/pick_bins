@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { Table, TableWrapper, Row } from "react-native-table-component";
 
 const DriverScreen = ({ navigation }) => {
   //const [isLoading, setisLoading] = useState(false);
@@ -136,7 +135,19 @@ const DriverScreen = ({ navigation }) => {
 
       <View styles={{ flex: 0.1 }}>
         <Card style={styles.cardDesign}>
-          <Table>
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
+            <Text style={styles.textDesign}>
+              Total Task: {"\t\t"} {totalT}
+            </Text>
+            <Text style={styles.textDesign}>
+              Completed: {"\t\t"} {completedT}
+            </Text>
+            <Text style={styles.textDesign}>
+              Remaining: {"\t\t"} {remainingT}
+            </Text>
+          </View>
+
+          {/* <Table>
             <TableWrapper>
               <Row
                 data={totalTask}
@@ -154,7 +165,7 @@ const DriverScreen = ({ navigation }) => {
                 textStyle={styles.textDesign}
               />
             </TableWrapper>
-          </Table>
+          </Table> */}
         </Card>
       </View>
     </SafeAreaView>
