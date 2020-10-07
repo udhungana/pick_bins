@@ -50,7 +50,7 @@ const Dashboard = ({ navigation }) => {
             height: 50,
           }}
         >
-          <Text style={styles.textDesign}>Date:</Text>
+          <Text style={styles.textDesign}>Date: </Text>
           <Text style={styles.rightMargin}>{dateLine}</Text>
         </View>
         <View
@@ -64,7 +64,7 @@ const Dashboard = ({ navigation }) => {
           <Text style={styles.textDesign}>Time:</Text>
           <Text style={styles.rightMargin}> {timeLine}</Text>
         </View>
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
           <View
             style={{
               alignItems: "center",
@@ -79,7 +79,7 @@ const Dashboard = ({ navigation }) => {
           <View style={{ flexDirection: "row", textAlign: "justify" }}>
             <Text
               style={{
-                marginLeft: 40,
+                marginLeft: 45,
                 flexWrap: "wrap",
                 textAlign: "justify",
               }}
