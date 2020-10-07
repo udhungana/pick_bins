@@ -22,7 +22,7 @@
     "react-dom": "~16.11.0",
     "react-hook-form": "^6.8.4",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
-    "react-native-appearance": "^0.3.4",
+    "react-native-appearance": "~0.3.3",
     "react-native-dropdown-picker": "^3.6.8",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-paper": "^4.2.0",

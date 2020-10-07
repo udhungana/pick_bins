@@ -11,7 +11,7 @@ const FirstScreen = ({ navigation }) => {
     console.log("once");
     setTimeout(() => {
       navigation.navigate("SignInScreen");
-    }, 3500);
+    }, 1000);
   }, []);
 
   return (
