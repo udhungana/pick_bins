@@ -32,7 +32,13 @@ const DriverScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ flex: 0.95, marginBottom: 30, backgroundColor: "white" }}>
+      <View
+        style={{
+          flex: 0.95,
+          marginBottom: 30,
+          backgroundColor: "white",
+        }}
+      >
         <ScrollView
           style={{
             width: 400,
@@ -44,13 +50,9 @@ const DriverScreen = ({ navigation }) => {
               <ScrollView
                 key={index}
                 style={{
-                  // flex: 1,
-                  // flexDirection: "row",
                   width: 400,
-                  // justifyContent: "flex-start",
                   borderBottomColor: "#DCDCDC",
                   borderBottomWidth: 1,
-                  //alignItems: "center",
                 }}
                 contentContainerStyle={{
                   flex: 1,
@@ -61,7 +63,9 @@ const DriverScreen = ({ navigation }) => {
                   alignItems: "center",
                 }}
               >
-                <View style={{ flex: 0.1, flexDirection: "row" }}>
+                <View
+                  style={{ flex: 0.1, flexDirection: "row", marginLeft: 20 }}
+                >
                   <Text
                     style={{
                       fontSize: 13,
@@ -175,8 +179,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 50,
-    marginLeft: 10,
-    marginRight: 10,
     // backgroundColor: "white",
   },
   cardDesign: {
