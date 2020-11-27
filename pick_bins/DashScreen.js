@@ -58,7 +58,7 @@ const DashScreen = () => {
       />
       <Tab.Screen
         name="Logout"
-        component={}
+        component={""}
         options={{
           tabBarLabel: "Logout",
           tabBarColor: "white",
