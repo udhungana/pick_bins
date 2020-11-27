@@ -94,7 +94,7 @@ const Dashboard = ({ navigation }) => {
         </View>
       </Card>
 
-      <View style={{ flex: 0.2, alignItems: "center" }}>
+      {/* <View style={{ flex: 0.2, alignItems: "center" }}>
         <Text
           style={{
             textAlign: "center",
@@ -129,7 +129,7 @@ const Dashboard = ({ navigation }) => {
             Pick Up Request
           </Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };

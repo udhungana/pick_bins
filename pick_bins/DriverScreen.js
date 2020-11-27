@@ -34,7 +34,7 @@ const DriverScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <View
         style={{
-          flex: 0.95,
+          flex: 1,
           marginBottom: 30,
           backgroundColor: "white",
         }}
@@ -42,7 +42,7 @@ const DriverScreen = ({ navigation }) => {
         <ScrollView
           style={{
             width: 400,
-            height: 400,
+            height: 600,
           }}
         >
           {data.map((address, index) => {
@@ -109,7 +109,7 @@ const DriverScreen = ({ navigation }) => {
                     />
                   </TouchableOpacity>
                 </View>
-                <View
+                {/* <View
                   style={{
                     flex: 0.1,
                     flexDirection: "row",
@@ -126,7 +126,7 @@ const DriverScreen = ({ navigation }) => {
                       size={20}
                     />
                   </TouchableOpacity>
-                </View>
+                </View> */}
               </ScrollView>
             );
           })}
@@ -157,7 +157,7 @@ const DriverScreen = ({ navigation }) => {
               <Row
                 data={completedTask}
                 style={styles.box}
-                textStyle={styles.textDesign}
+                textStyle={styles.textDesign}np
               />
               <Row
                 data={remainingTask}
@@ -167,6 +167,25 @@ const DriverScreen = ({ navigation }) => {
             </TableWrapper>
           </Table> */}
         </Card>
+      </View>
+      <View
+        style={{
+          flex: 0.1,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          marginLeft: 5,
+          marginRight: 10,
+          marginTop: 5,
+        }}
+      >
+        <TouchableOpacity
+          style={{ flex: 1, flexDirection: "row" }}
+          onPress={() => navigation.goBack()}
+        >
+          <MaterialCommunityIcons name="logout" color="red" size={20} />
+          <Text style={{ color: "red" }}>Logout</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -205,5 +224,6 @@ const styles = StyleSheet.create({
     height: 22,
     alignItems: "center",
     justifyContent: "center",
+    marginRight: 20,
   },
 });

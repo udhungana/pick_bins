@@ -7,6 +7,7 @@ import Dashboard from "./Dashboard";
 import Pickup from "./Pickup";
 import Support from "./Support";
 import Account from "./Account";
+import SignInScreen from "./SignInScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -34,17 +35,6 @@ const DashScreen = () => {
         }}
       />
       <Tab.Screen
-        name="Pickup"
-        component={Pickup}
-        options={{
-          tabBarLabel: "Pickup",
-          tabBarColor: "white",
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="truck" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
         name="Support"
         component={Support}
         options={{
@@ -63,6 +53,17 @@ const DashScreen = () => {
           tabBarColor: "white",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Logout"
+        component={}
+        options={{
+          tabBarLabel: "Logout",
+          tabBarColor: "white",
+          tabBarIcon: () => (
+            <MaterialCommunityIcons name="logout" color="red" size={26} />
           ),
         }}
       />
