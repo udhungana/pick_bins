@@ -8,6 +8,8 @@ import {
 } from "react-native";
 
 import Assets from "./components/Assets";
+import axios from 'axios';
+
 
 const SignInScreen = ({ navigation }) => {
   const [email, setemail] = useState("");
@@ -15,6 +17,14 @@ const SignInScreen = ({ navigation }) => {
 
   const handleSubmit = (event) => {
     //alert('Email: ' + email + '  password: ' + password);
+    //console.log(email, password);
+    axios.post("http://192.168.1.128:4000/user/login",
+      {
+        email,
+        password
+      }).then((response)=>{
+        console.log(response);
+      })
     if (email == "e@driver" && password == "p") {
       navigation.navigate("DriverScreen");
     } else if (email == "e@user" && password == "p") {
