@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AsyncStorage from '@react-native-community/async-storage'
 import {
   TouchableOpacity,
   View,
@@ -14,6 +15,24 @@ import axios from 'axios';
 const SignInScreen = ({ navigation }) => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const [isDriver, setIsDriver] = useState(true);
+
+  // const storeToken = async (user)=>{
+  //   try {
+  //      await AsyncStorage.setItem("token", JSON.stringify(user._response.token));
+  //   } catch (error) {
+  //     console.log("Something went wrong", error);
+  //   }
+  // }
+  // const getToken = async (user) =>{
+  //   try {
+  //     let userData = await AsyncStorage.getItem("token");
+  //     let data = JSON.parse(userData);
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.log("Something went wrong", error);
+  //   }
+  // }
 
   const handleSubmit = (event) => {
     //alert('Email: ' + email + '  password: ' + password);
@@ -23,15 +42,28 @@ const SignInScreen = ({ navigation }) => {
         email,
         password
       }).then((response)=>{
-        console.log(response);
+        console.log(response['data']);
+        AsyncStorage.setItem('token', response['data']["token"]);
+        //console.log(response.data.isDriver);
+        setIsDriver(response.data.isDriver);
       })
-    if (email == "e@driver" && password == "p") {
+
+    // AsyncStorage.getItem('token').then((response)=>{
+    //   console.log(response);
+    // })
+    console.log(isDriver);
+    if (isDriver){
       navigation.navigate("DriverScreen");
-    } else if (email == "e@user" && password == "p") {
+    }else {
       navigation.navigate("DashScreen");
-    } else {
-      alert("Incorrect    : Email: " + email + "  password: " + password);
     }
+    // if (email == "e@driver" && password == "p") {
+    //   navigation.navigate("DriverScreen");
+    // } else if (email == "e@user" && password == "p") {
+    //   navigation.navigate("DashScreen");
+    // } else {
+    //   alert("Incorrect    : Email: " + email + "  password: " + password);
+    // }
   };
 
   return (
