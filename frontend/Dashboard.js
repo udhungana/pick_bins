@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card } from "react-native-paper";
@@ -12,14 +12,10 @@ import { Card } from "react-native-paper";
 //   Cell,
 // } from "react-native-table-component";
 
+import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 const Dashboard = ({ navigation }) => {
-  // const [dateLine, setDateLine] = useState(["Date", "September 20"]);
-  // // change data from varibale instead
-  // const [timeLine, setTimeLine] = useState(["Time", "5 pm"]);
-  // const [locationLine, setLocationLine] = useState([
-  //   "Location",
-  //   "1000 Courtside Dr. Irving Tx",
-  // ]);
+  //const Dashboard = (props) => {
 
   var dateLine = "September 20";
   var timeLine = "5 pm";
@@ -27,21 +23,89 @@ const Dashboard = ({ navigation }) => {
   var city = "Irving";
   var state = " Tx";
 
-  const handleSubmit = () => {
-    navigation.navigate("Pickup");
-  };
+  const [date, setDate] = useState();
+
+  const [time, setTime] = useState();
+
+  const [location, setLocation] = useState();
+
+  const [userName, setUserName] = useState();
+
+  //const [dashboardClicked, setDashboardClicked] = useState(0);
+
+  useEffect(() => {
+
+    var today = new Date(),
+      date =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate();
+    setDate(date);
+
+    AsyncStorage.getItem('token').then((response) => {
+      console.log('###############')
+      console.log('token from async')
+      console.log(response);
+      console.log('###############')
+
+      axios
+        .get("http://192.168.1.176:4000/getSchedule", {
+          headers: { Authorization: `Bearer ${response}` },
+        })
+        .then((response) => {
+          console.log('###############')
+          console.log(response.data);
+          console.log('###############')
+          var time = 0;
+          if (today.getMinutes() + response.data.duration >= 60) {
+            var hr = Math.floor(
+              (today.getMinutes() + response.data.duration) / 60
+            );
+            var minutes = (today.getMinutes() + response.data.duration) % 60;
+            var ampm = hr >= 12 ? "pm" : "am";
+            time =
+              today.getHours() +
+              hr +
+              ":" +
+              minutes +
+              ":" +
+              today.getSeconds() +
+              ampm;
+          } else {
+            var ampm = today.getHours() >= 12 ? "pm" : "am";
+            time =
+              today.getHours() +
+              ":" +
+              (today.getMinutes() + response.data.duration) +
+              ":" +
+              today.getSeconds() +
+              ampm;
+          }
+
+          setTime(time);
+          setLocation(response.data.location);
+          setUserName(response.data.firstName);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })
+  }, []);
+
+  // const handleSubmit = () => {
+  //   //navigation.navigate("Pickup");
+  // };
 
   return (
     <View style={styles.container}>
-      {/* add username variable */}
-      <Text style={{ fontSize: 20, fontWeight: "bold", margin: 5 }}>
-        Hey Username !
-      </Text>
+      <Text style={{ fontSize: 20, fontWeight: "bold", margin: 5 }}>Hello!</Text>
+      <Text style={{ fontSize: 20, fontWeight: "bold", margin: 5 }}>{userName}!</Text>
       <Text style={{ fontSize: 18, fontWeight: "bold", margin: 5 }}>
-        Your Pickup is Scheduled
+        Your next pickup is scheduled for:
       </Text>
       <Card style={styles.cardDesign}>
-        {/* add date,time and location variables */}
         <View
           style={{
             alignItems: "center",
@@ -51,7 +115,7 @@ const Dashboard = ({ navigation }) => {
           }}
         >
           <Text style={styles.textDesign}>Date: </Text>
-          <Text style={styles.rightMargin}>{dateLine}</Text>
+          <Text style={styles.rightMargin}>{date}</Text>
         </View>
         <View
           style={{
@@ -62,7 +126,7 @@ const Dashboard = ({ navigation }) => {
           }}
         >
           <Text style={styles.textDesign}>Time:</Text>
-          <Text style={styles.rightMargin}> {timeLine}</Text>
+          <Text style={styles.rightMargin}> {time}</Text>
         </View>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <View
@@ -71,25 +135,12 @@ const Dashboard = ({ navigation }) => {
               justifyContent: "flex-start",
               flexDirection: "row",
               height: 50,
-              flexWrap: "wrap",
             }}
           >
             <Text style={styles.textDesign}>Location:</Text>
+            <Text style={styles.rightMargin}> {location}</Text>
           </View>
-          <View style={{ flexDirection: "row", textAlign: "justify" }}>
-            <Text
-              style={{
-                marginLeft: 45,
-                flexWrap: "wrap",
-                textAlign: "justify",
-              }}
-            >
-              {locationLine}
-              {"\n"}
-              {city}
-              {", "}
-              {state}
-            </Text>
+          <View style={{ flexDirection: "row", textAlign: "center" }}>
           </View>
         </View>
       </Card>

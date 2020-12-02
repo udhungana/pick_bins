@@ -10,23 +10,57 @@ import {
 } from "react-native";
 // import DropDownPicker from "react-native-dropdown-picker";
 import countryList from "react-select-country-list";
+import axios from 'axios';
 
 const SignUpScreen = ({ navigation }) => {
   const options = countryList().getData();
 
-  const [selectedCountry, setSelectedCountry] = useState("USA");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  //const [selectedCountry, setSelectedCountry] = useState("USA");
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  // const [address, setAddress] = useState("");
+  // const [city, setCity] = useState("");
+  // const [zipCode, setZipCode] = useState("");
+  // const [username, setUsername] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setpassword] = useState("");
+  // const [passwordCheck, setcheckPassword] = useState("");
+
+  const [first_name, setFirstname] = useState("");
+  const [last_name, setLastname] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [zipCode, setZipCode] = useState("");
-  const [username, setUsername] = useState("");
+  const [zip_code, setZip] = useState("");
+  const [country, setCountry] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setpassword] = useState("");
-  const [passwordCheck, setcheckPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
 
   const handleSubmit = () => {
-    navigation.navigate("SignInScreen");
+    axios
+      .post("http://192.168.1.176:4000/user/signup", {
+        first_name,
+        last_name,
+        address,
+        city,
+        zip_code,
+        country,
+        email,
+        username,
+        password,
+        password2,
+        isDriver: false,
+        isAdmin: false,
+      })
+      .then((response) => {
+        console.log(response.data.token);
+        navigation.navigate("SignInScreen");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
   };
 
   return (
@@ -36,13 +70,13 @@ const SignUpScreen = ({ navigation }) => {
           style={styles.input}
           placeholder="First Name*"
           autoCapitalize="none"
-          onChangeText={(val) => setFirstName(val)}
+          onChangeText={(val) => setFirstname(val)}
         />
         <TextInput
           style={styles.input}
           placeholder="Last Name*"
           autoCapitalize="none"
-          onChangeText={(val) => setLastName(val)}
+          onChangeText={(val) => setLastname(val)}
         />
         <TextInput
           style={styles.input}
@@ -61,7 +95,7 @@ const SignUpScreen = ({ navigation }) => {
           placeholder="Zip Code*"
           autoCapitalize="none"
           keyboardType="numeric"
-          onChangeText={(val) => setZipCode(val)}
+          onChangeText={(val) => setZip(val)}
         />
         {/* <DropDownPicker
           items={options}
@@ -79,9 +113,9 @@ const SignUpScreen = ({ navigation }) => {
         /> */}
         <TextInput
           style={styles.input}
-          placeholder="Phone Number*"
+          placeholder="Country*"
           autoCapitalize="none"
-          onChangeText={(val) => setPhonenumber(val)}
+          onChangeText={(val) => setCountry(val)}
         />
         <TextInput
           style={styles.input}
@@ -100,14 +134,14 @@ const SignUpScreen = ({ navigation }) => {
           placeholder="Password*"
           secureTextEntry={true}
           autoCapitalize="none"
-          onChangeText={(val) => setpassword(val)}
+          onChangeText={(val) => setPassword(val)}
         />
         <TextInput
           style={styles.input}
           placeholder="Confirm Password*"
           secureTextEntry={true}
           autoCapitalize="none"
-          onChangeText={(val) => setcheckpassword(val)}
+          onChangeText={(val) => setPassword2(val)}
         />
 
         <TouchableOpacity

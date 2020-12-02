@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AsyncStorage from '@react-native-community/async-storage'
 import {
   TouchableOpacity,
@@ -15,7 +15,8 @@ import axios from 'axios';
 const SignInScreen = ({ navigation }) => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const [isDriver, setIsDriver] = useState(true);
+  const [isDriver, setIsDriver] = useState(false);
+  const [check, setCheck] = useState(0);
 
   // const storeToken = async (user)=>{
   //   try {
@@ -35,36 +36,31 @@ const SignInScreen = ({ navigation }) => {
   // }
 
   const handleSubmit = (event) => {
-    //alert('Email: ' + email + '  password: ' + password);
-    //console.log(email, password);
-    axios.post("http://192.168.1.128:4000/user/login",
+
+    axios.post("http://192.168.1.176:4000/user/login",
       {
         email,
         password
-      }).then((response)=>{
-        console.log(response['data']);
+      }).then((response) => {
         AsyncStorage.setItem('token', response['data']["token"]);
-        //console.log(response.data.isDriver);
         setIsDriver(response.data.isDriver);
+        console.log(response);
+        setCheck(check => check + 1)
       })
 
     // AsyncStorage.getItem('token').then((response)=>{
     //   console.log(response);
     // })
-    console.log(isDriver);
-    if (isDriver){
+  };
+
+  useEffect(() => {
+    if (isDriver) {
       navigation.navigate("DriverScreen");
-    }else {
+    } else {
       navigation.navigate("DashScreen");
     }
-    // if (email == "e@driver" && password == "p") {
-    //   navigation.navigate("DriverScreen");
-    // } else if (email == "e@user" && password == "p") {
-    //   navigation.navigate("DashScreen");
-    // } else {
-    //   alert("Incorrect    : Email: " + email + "  password: " + password);
-    // }
-  };
+    //console.log('use effect isDriver ' + isDriver);
+  }, [isDriver, check]);
 
   return (
     <View

@@ -1,34 +1,85 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 
 const DriverScreen = ({ navigation }) => {
-  //const [isLoading, setisLoading] = useState(false);
-
-  const [data, setDate] = useState([
-    "4038 esters road, irving, texas",
-    "data2",
-    "data3",
-    "5015 Courtside dr, irving, texas",
-    "5015 Courtside dr, irving, texas",
-    "5015 Courtside dr, irving, texas",
-    "5015 Courtside dr, irving, texas",
-    "5015 Courtside dr, irving, texas",
-    "5015 Courtside dr, irving, texas",
-    "5015 Courtside dr, irving, texas",
-    "5015 Courtside dr, irving, texas",
-    "5015 Courtside dr, irving, texas",
-  ]);
-  // const [totalTask, settotalTask] = useState("6");
-  // // change data from varibale instead
-  // const [completedTask, setcompletedTask] = useState("4");
-  // const [remainingTask, setremainingTask] = useState("2");
+  const [driverTask, setDriverTask] = useState([]);
 
   var totalT = 6;
   var completedT = 4;
   var remainingT = 2;
+
+  useEffect(() => {
+    AsyncStorage.getItem('token').then((response) => {
+      console.log('###############')
+      console.log('token from async')
+      console.log(response);
+      console.log('###############')
+      axios
+        .get("http://192.168.1.176:4000/getTask", {
+          headers: { Authorization: `Bearer ${response}` },
+        })
+        .then((response) => {
+          //console.log(response);
+          //setTodos(response.data.path);
+          console.log('###############')
+          console.log('Driver list from use effect')
+          console.log(response.data.path)
+          setDriverTask(response.data.path)
+          console.log('###############')
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })
+  }, []);
+
+  const deleteItem = (addr) => {
+    setDriverTask(driverTask.filter((item) => item.address !== addr));
+    //updating location of driver location
+    AsyncStorage.getItem('token').then((response) => {
+      console.log('###############')
+      console.log('token from async')
+      console.log(response);
+      console.log('###############')
+      axios
+        .post("http://192.168.1.176:4000/updateDriverLocation", { current_location: addr }, {
+          headers: { Authorization: `Bearer ${response}` },
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  };
+
+  const logoutClicked = () => {
+    AsyncStorage.getItem('token').then((response) => {
+      console.log('###############')
+      console.log('token from async')
+      console.log(response);
+      console.log('###############')
+      axios
+        .post("http://192.168.1.176:4000/user/logout", {}, {
+          headers: { Authorization: `Bearer ${response}` },
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            navigation.navigate("SignInScreen");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -45,7 +96,7 @@ const DriverScreen = ({ navigation }) => {
             height: 600,
           }}
         >
-          {data.map((address, index) => {
+          {driverTask.map((d, index) => {
             return (
               <ScrollView
                 key={index}
@@ -90,7 +141,7 @@ const DriverScreen = ({ navigation }) => {
                       flexDirection: "row",
                     }}
                   >
-                    {address}
+                    {d.address}
                   </Text>
                 </View>
                 <View
@@ -101,7 +152,7 @@ const DriverScreen = ({ navigation }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <TouchableOpacity style={styles.tickButton}>
+                  <TouchableOpacity onPress={() => deleteItem(d.address)} style={styles.tickButton}>
                     <MaterialCommunityIcons
                       name="check"
                       color="#00A600"
@@ -181,7 +232,7 @@ const DriverScreen = ({ navigation }) => {
       >
         <TouchableOpacity
           style={{ flex: 1, flexDirection: "row" }}
-          onPress={() => navigation.goBack()}
+          onPress={() => logoutClicked()}
         >
           <MaterialCommunityIcons name="logout" color="red" size={20} />
           <Text style={{ color: "red" }}>Logout</Text>
