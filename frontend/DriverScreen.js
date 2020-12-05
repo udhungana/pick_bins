@@ -9,9 +9,8 @@ import axios from "axios";
 const DriverScreen = ({ navigation }) => {
   const [driverTask, setDriverTask] = useState([]);
 
-  var totalT = 6;
-  var completedT = 4;
-  var remainingT = 2;
+  const [totalT, setTotalT] = useState(0);
+  const [completedT, setCompletedT] = useState(0);
 
   useEffect(() => {
     AsyncStorage.getItem("token").then((response) => {
@@ -31,6 +30,7 @@ const DriverScreen = ({ navigation }) => {
           console.log("Driver list from use effect");
           console.log(response.data.path);
           setDriverTask(response.data.path);
+          setTotalT(response.data.path.length);
           console.log("###############");
         })
         .catch((error) => {
@@ -41,6 +41,7 @@ const DriverScreen = ({ navigation }) => {
 
   const deleteItem = (addr) => {
     setDriverTask(driverTask.filter((item) => item.address !== addr));
+
     //updating location of driver location
     AsyncStorage.getItem("token").then((response) => {
       console.log("###############");
@@ -58,6 +59,7 @@ const DriverScreen = ({ navigation }) => {
         )
         .then((response) => {
           console.log(response);
+          setCompletedT((completedT) => completedT + 1);
         })
         .catch((error) => {
           console.log(error);
@@ -105,6 +107,7 @@ const DriverScreen = ({ navigation }) => {
           style={{
             width: 400,
             height: 600,
+            marginTop: 20,
           }}
         >
           {driverTask.map((d, index) => {
@@ -145,7 +148,7 @@ const DriverScreen = ({ navigation }) => {
                   <Text
                     style={{
                       fontSize: 13,
-                      height: 30,
+                      height: 60,
                       alignSelf: "flex-start",
                       fontWeight: "bold",
                       marginLeft: 5,
@@ -208,7 +211,7 @@ const DriverScreen = ({ navigation }) => {
               Completed: {"\t\t\t"} {completedT}
             </Text>
             <Text style={styles.textDesign}>
-              Remaining: {"\t\t\t"} {remainingT}
+              Remaining: {"\t\t\t"} {driverTask.length}
             </Text>
           </View>
 
@@ -262,7 +265,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 50,
+    marginTop: 60,
     // backgroundColor: "white",
   },
   cardDesign: {
