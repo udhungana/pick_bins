@@ -54,10 +54,12 @@ const SignInScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    if (isDriver) {
-      navigation.navigate("DriverScreen");
-    } else {
-      navigation.navigate("DashScreen");
+    if (check > 0) {
+      if (isDriver) {
+        navigation.navigate("DriverScreen");
+      } else {
+        navigation.navigate("DashScreen");
+      }
     }
     //console.log('use effect isDriver ' + isDriver);
   }, [isDriver, check]);
