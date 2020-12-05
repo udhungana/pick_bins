@@ -10,18 +10,27 @@ import Pickup from "./Pickup";
 import Support from "./Support";
 import Account from "./Account";
 import DriverScreen from "./DriverScreen";
+import Logout from "./Logout";
 
 const RootStack = createStackNavigator();
 
 const Rootnavigation = ({ navigation }) => (
   <RootStack.Navigator>
-    <RootStack.Screen name="FirstScreen" component={FirstScreen} />
+    <RootStack.Screen
+      name="FirstScreen"
+      component={FirstScreen}
+      options={{ headerLeft: null, headerShown: false }}
+    />
     <RootStack.Screen
       name="SignInScreen"
       component={SignInScreen}
-      options={{ headerLeft: null }}
+      options={{ headerLeft: null, headerShown: false }}
     />
-    <RootStack.Screen name="SignUpScreen" component={SignUpScreen} />
+    <RootStack.Screen
+      name="SignUpScreen"
+      component={SignUpScreen}
+      options={{ title: "Create New Account" }}
+    />
     <RootStack.Screen
       name="DashScreen"
       component={DashScreen}
@@ -37,6 +46,12 @@ const Rootnavigation = ({ navigation }) => (
       component={DriverScreen}
       options={{ headerLeft: null, headerShown: false }}
     />
+    <RootStack.Screen
+      name="Logout"
+      component={Logout}
+      options={{ headerLeft: null, headerShown: false }}
+    />
+    <RootStack.Screen name="Support" component={Support} />
     {/* <RootStack.Screen name="Dashboard" component={Dashboard} />
     <RootStack.Screen name="Pickup" component={Pickup} />
     <RootStack.Screen name="Support" component={Support} />

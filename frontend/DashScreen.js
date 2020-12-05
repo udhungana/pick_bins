@@ -8,6 +8,7 @@ import Pickup from "./Pickup";
 import Support from "./Support";
 import Account from "./Account";
 import SignInScreen from "./SignInScreen";
+import Logout from "./Logout";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -88,7 +89,7 @@ const DashScreen = () => {
       <Tab.Screen
         //tabBarOnPress={() => (logoutClicked)}
         name="Logout"
-        component={""} //{logoutClicked}
+        component={Logout} //{logoutClicked}
         options={{
           tabBarLabel: "Logout",
           tabBarColor: "white",

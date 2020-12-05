@@ -10,7 +10,7 @@ import {
 } from "react-native";
 // import DropDownPicker from "react-native-dropdown-picker";
 import countryList from "react-select-country-list";
-import axios from 'axios';
+import axios from "axios";
 
 const SignUpScreen = ({ navigation }) => {
   const options = countryList().getData();
@@ -60,7 +60,6 @@ const SignUpScreen = ({ navigation }) => {
       .catch((err) => {
         console.log(err);
       });
-
   };
 
   return (
@@ -181,6 +180,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
+    marginTop: 10,
   },
   loginbutton: {
     textAlign: "center",

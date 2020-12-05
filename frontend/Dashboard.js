@@ -100,13 +100,17 @@ const Dashboard = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 20, fontWeight: "bold", margin: 5 }}>
-        Hello!
+      <Text
+        style={{ fontSize: 30, fontWeight: "bold", margin: 5, color: "green" }}
+      >
+        Hello,
       </Text>
-      <Text style={{ fontSize: 20, fontWeight: "bold", margin: 5 }}>
+      <Text
+        style={{ fontSize: 30, fontWeight: "bold", margin: 5, color: "green" }}
+      >
         {userName}!
       </Text>
-      <Text style={{ fontSize: 18, fontWeight: "bold", margin: 5 }}>
+      <Text style={{ fontSize: 18, margin: 5, color: "green" }}>
         Your next pickup is scheduled for:
       </Text>
       <Card style={styles.cardDesign}>
@@ -116,6 +120,7 @@ const Dashboard = ({ navigation }) => {
             justifyContent: "flex-start",
             flexDirection: "row",
             height: 50,
+            marginTop: 10,
           }}
         >
           <Text style={styles.textDesign}>Date: </Text>
@@ -138,11 +143,15 @@ const Dashboard = ({ navigation }) => {
               alignItems: "center",
               justifyContent: "flex-start",
               flexDirection: "row",
+              flex: 1,
               height: 50,
             }}
           >
             <Text style={styles.textDesign}>Location:</Text>
-            <Text style={styles.rightMargin}> {location}</Text>
+            <Text style={{ marginLeft: 10, textAlign: "left", flex: 1 }}>
+              {" "}
+              {location}
+            </Text>
           </View>
           <View style={{ flexDirection: "row", textAlign: "center" }}></View>
         </View>
@@ -196,21 +205,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   cardDesign: {
-    flex: 0.3,
+    flex: 0.4,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    padding: 24,
-    margin: 30,
+    padding: 10,
+    margin: 15,
     flexWrap: "wrap",
   },
   textDesign: {
     textAlign: "left",
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: "bold",
   },
   rightMargin: {
-    marginLeft: 70,
+    marginLeft: 50,
+    textAlign: "left",
   },
   box: {
     height: 50,

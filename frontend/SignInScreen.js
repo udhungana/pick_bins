@@ -71,7 +71,7 @@ const SignInScreen = ({ navigation }) => {
         flexDirection: "column",
         backgroundColor: "white",
         alignItems: "center",
-        marginTop: 0,
+        marginTop: 50,
       }}
     >
       <View
