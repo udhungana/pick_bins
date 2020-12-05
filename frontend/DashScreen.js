@@ -88,7 +88,7 @@ const DashScreen = () => {
       <Tab.Screen
         //tabBarOnPress={() => (logoutClicked)}
         name="Logout"
-        component={""}//{logoutClicked}
+        component={""} //{logoutClicked}
         options={{
           tabBarLabel: "Logout",
           tabBarColor: "white",

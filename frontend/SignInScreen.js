@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from "@react-native-community/async-storage";
 import {
   TouchableOpacity,
   View,
@@ -9,8 +9,7 @@ import {
 } from "react-native";
 
 import Assets from "./components/Assets";
-import axios from 'axios';
-
+import axios from "axios";
 
 const SignInScreen = ({ navigation }) => {
   const [email, setemail] = useState("");
@@ -36,17 +35,18 @@ const SignInScreen = ({ navigation }) => {
   // }
 
   const handleSubmit = (event) => {
-
-    axios.post("http://192.168.1.176:4000/user/login",
-      {
+    axios
+      //.post("http://192.168.1.176:4000/user/login",    himal pat ko
+      .post("http://192.168.1.228:4000/user/login", {
         email,
-        password
-      }).then((response) => {
-        AsyncStorage.setItem('token', response['data']["token"]);
+        password,
+      })
+      .then((response) => {
+        AsyncStorage.setItem("token", response["data"]["token"]);
         setIsDriver(response.data.isDriver);
         console.log(response);
-        setCheck(check => check + 1)
-      })
+        setCheck((check) => check + 1);
+      });
 
     // AsyncStorage.getItem('token').then((response)=>{
     //   console.log(response);

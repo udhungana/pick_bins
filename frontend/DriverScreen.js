@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import AsyncStorage from '@react-native-community/async-storage';
-import axios from 'axios';
+import AsyncStorage from "@react-native-community/async-storage";
+import axios from "axios";
 
 const DriverScreen = ({ navigation }) => {
   const [driverTask, setDriverTask] = useState([]);
@@ -14,42 +14,48 @@ const DriverScreen = ({ navigation }) => {
   var remainingT = 2;
 
   useEffect(() => {
-    AsyncStorage.getItem('token').then((response) => {
-      console.log('###############')
-      console.log('token from async')
+    AsyncStorage.getItem("token").then((response) => {
+      console.log("###############");
+      console.log("token from async");
       console.log(response);
-      console.log('###############')
+      console.log("###############");
       axios
-        .get("http://192.168.1.176:4000/getTask", {
+        //.get("http://192.168.1.176:4000/getTask", {     himal pat ko
+        .get("http://192.168.1.228:4000/getTask", {
           headers: { Authorization: `Bearer ${response}` },
         })
         .then((response) => {
           //console.log(response);
           //setTodos(response.data.path);
-          console.log('###############')
-          console.log('Driver list from use effect')
-          console.log(response.data.path)
-          setDriverTask(response.data.path)
-          console.log('###############')
+          console.log("###############");
+          console.log("Driver list from use effect");
+          console.log(response.data.path);
+          setDriverTask(response.data.path);
+          console.log("###############");
         })
         .catch((error) => {
           console.log(error);
         });
-    })
+    });
   }, []);
 
   const deleteItem = (addr) => {
     setDriverTask(driverTask.filter((item) => item.address !== addr));
     //updating location of driver location
-    AsyncStorage.getItem('token').then((response) => {
-      console.log('###############')
-      console.log('token from async')
+    AsyncStorage.getItem("token").then((response) => {
+      console.log("###############");
+      console.log("token from async");
       console.log(response);
-      console.log('###############')
+      console.log("###############");
       axios
-        .post("http://192.168.1.176:4000/updateDriverLocation", { current_location: addr }, {
-          headers: { Authorization: `Bearer ${response}` },
-        })
+        //.post("http://192.168.1.176:4000/updateDriverLocation",     himal ko
+        .post(
+          "http://192.168.1.228:4000/updateDriverLocation",
+          { current_location: addr },
+          {
+            headers: { Authorization: `Bearer ${response}` },
+          }
+        )
         .then((response) => {
           console.log(response);
         })
@@ -60,15 +66,20 @@ const DriverScreen = ({ navigation }) => {
   };
 
   const logoutClicked = () => {
-    AsyncStorage.getItem('token').then((response) => {
-      console.log('###############')
-      console.log('token from async')
+    AsyncStorage.getItem("token").then((response) => {
+      console.log("###############");
+      console.log("token from async");
       console.log(response);
-      console.log('###############')
+      console.log("###############");
       axios
-        .post("http://192.168.1.176:4000/user/logout", {}, {
-          headers: { Authorization: `Bearer ${response}` },
-        })
+        //.post("http://192.168.1.176:4000/user/logout",
+        .post(
+          "http://192.168.1.228:4000/user/logout",
+          {},
+          {
+            headers: { Authorization: `Bearer ${response}` },
+          }
+        )
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
@@ -152,7 +163,10 @@ const DriverScreen = ({ navigation }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <TouchableOpacity onPress={() => deleteItem(d.address)} style={styles.tickButton}>
+                  <TouchableOpacity
+                    onPress={() => deleteItem(d.address)}
+                    style={styles.tickButton}
+                  >
                     <MaterialCommunityIcons
                       name="check"
                       color="#00A600"

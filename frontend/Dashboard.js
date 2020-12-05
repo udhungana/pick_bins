@@ -12,8 +12,8 @@ import { Card } from "react-native-paper";
 //   Cell,
 // } from "react-native-table-component";
 
-import AsyncStorage from '@react-native-community/async-storage';
-import axios from 'axios';
+import AsyncStorage from "@react-native-community/async-storage";
+import axios from "axios";
 const Dashboard = ({ navigation }) => {
   //const Dashboard = (props) => {
 
@@ -34,7 +34,6 @@ const Dashboard = ({ navigation }) => {
   //const [dashboardClicked, setDashboardClicked] = useState(0);
 
   useEffect(() => {
-
     var today = new Date(),
       date =
         today.getFullYear() +
@@ -44,20 +43,21 @@ const Dashboard = ({ navigation }) => {
         today.getDate();
     setDate(date);
 
-    AsyncStorage.getItem('token').then((response) => {
-      console.log('###############')
-      console.log('token from async')
+    AsyncStorage.getItem("token").then((response) => {
+      console.log("###############");
+      console.log("token from async");
       console.log(response);
-      console.log('###############')
+      console.log("###############");
 
       axios
-        .get("http://192.168.1.176:4000/getSchedule", {
+        //.get("http://192.168.1.176:4000/getSchedule", {   himal ko
+        .get("http://192.168.1.228:4000/getSchedule", {
           headers: { Authorization: `Bearer ${response}` },
         })
         .then((response) => {
-          console.log('###############')
+          console.log("###############");
           console.log(response.data);
-          console.log('###############')
+          console.log("###############");
           var time = 0;
           if (today.getMinutes() + response.data.duration >= 60) {
             var hr = Math.floor(
@@ -91,7 +91,7 @@ const Dashboard = ({ navigation }) => {
         .catch((error) => {
           console.log(error);
         });
-    })
+    });
   }, []);
 
   // const handleSubmit = () => {
@@ -100,8 +100,12 @@ const Dashboard = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 20, fontWeight: "bold", margin: 5 }}>Hello!</Text>
-      <Text style={{ fontSize: 20, fontWeight: "bold", margin: 5 }}>{userName}!</Text>
+      <Text style={{ fontSize: 20, fontWeight: "bold", margin: 5 }}>
+        Hello!
+      </Text>
+      <Text style={{ fontSize: 20, fontWeight: "bold", margin: 5 }}>
+        {userName}!
+      </Text>
       <Text style={{ fontSize: 18, fontWeight: "bold", margin: 5 }}>
         Your next pickup is scheduled for:
       </Text>
@@ -140,8 +144,7 @@ const Dashboard = ({ navigation }) => {
             <Text style={styles.textDesign}>Location:</Text>
             <Text style={styles.rightMargin}> {location}</Text>
           </View>
-          <View style={{ flexDirection: "row", textAlign: "center" }}>
-          </View>
+          <View style={{ flexDirection: "row", textAlign: "center" }}></View>
         </View>
       </Card>
 
