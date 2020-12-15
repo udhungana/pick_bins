@@ -12,7 +12,11 @@ import Account from "./Account";
 import DriverScreen from "./DriverScreen";
 import Logout from "./Logout";
 
+//create stack navigator to navigate between the screen in the app
+
 const RootStack = createStackNavigator();
+
+//add each of the screen inside stack navigator component
 
 const Rootnavigation = ({ navigation }) => (
   <RootStack.Navigator>
@@ -52,10 +56,6 @@ const Rootnavigation = ({ navigation }) => (
       options={{ headerLeft: null, headerShown: false }}
     />
     <RootStack.Screen name="Support" component={Support} />
-    {/* <RootStack.Screen name="Dashboard" component={Dashboard} />
-    <RootStack.Screen name="Pickup" component={Pickup} />
-    <RootStack.Screen name="Support" component={Support} />
-    <RootStack.Screen name="Account" component={Account} /> */}
   </RootStack.Navigator>
 );
 

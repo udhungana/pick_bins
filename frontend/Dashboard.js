@@ -2,20 +2,12 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card } from "react-native-paper";
-// import {
-//   Table,
-//   TableWrapper,
-//   Row,
-//   Rows,
-//   Col,
-//   Cols,
-//   Cell,
-// } from "react-native-table-component";
+
 
 import AsyncStorage from "@react-native-community/async-storage";
 import axios from "axios";
 const Dashboard = ({ navigation }) => {
-  //const Dashboard = (props) => {
+ 
 
   var dateLine = "September 20";
   var timeLine = "5 pm";
@@ -31,7 +23,7 @@ const Dashboard = ({ navigation }) => {
 
   const [userName, setUserName] = useState();
 
-  //const [dashboardClicked, setDashboardClicked] = useState(0);
+  
 
   useEffect(() => {
     var today = new Date(),
@@ -72,7 +64,10 @@ const Dashboard = ({ navigation }) => {
               minutes +
               ":" +
               today.getSeconds() +
+              " " +
               ampm;
+
+            if(time )
           } else {
             var ampm = today.getHours() >= 12 ? "pm" : "am";
             time =
@@ -81,6 +76,7 @@ const Dashboard = ({ navigation }) => {
               (today.getMinutes() + response.data.duration) +
               ":" +
               today.getSeconds() +
+              " " +
               ampm;
           }
 
@@ -94,9 +90,7 @@ const Dashboard = ({ navigation }) => {
     });
   }, []);
 
-  // const handleSubmit = () => {
-  //   //navigation.navigate("Pickup");
-  // };
+ 
 
   return (
     <View style={styles.container}>
@@ -134,8 +128,8 @@ const Dashboard = ({ navigation }) => {
             height: 50,
           }}
         >
-          <Text style={styles.textDesign}>Time:</Text>
-          <Text style={styles.rightMargin}> {time}</Text>
+          <Text style={styles.textDesign}>ETA:</Text>
+          <Text style={styles.rightMargin}>{time}</Text>
         </View>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <View
