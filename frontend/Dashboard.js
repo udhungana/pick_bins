@@ -3,12 +3,14 @@ import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card } from "react-native-paper";
 
-
 import AsyncStorage from "@react-native-community/async-storage";
 import axios from "axios";
-const Dashboard = ({ navigation }) => {
- 
 
+/**
+ *
+ * @param {*} dateLine
+ */
+const Dashboard = ({ navigation }) => {
   var dateLine = "September 20";
   var timeLine = "5 pm";
   var locationLine = "1000 Courtside Dr.";
@@ -22,8 +24,6 @@ const Dashboard = ({ navigation }) => {
   const [location, setLocation] = useState();
 
   const [userName, setUserName] = useState();
-
-  
 
   useEffect(() => {
     var today = new Date(),
@@ -51,12 +51,16 @@ const Dashboard = ({ navigation }) => {
           console.log(response.data);
           console.log("###############");
           var time = 0;
+
           if (today.getMinutes() + response.data.duration >= 60) {
             var hr = Math.floor(
               (today.getMinutes() + response.data.duration) / 60
             );
             var minutes = (today.getMinutes() + response.data.duration) % 60;
             var ampm = hr >= 12 ? "pm" : "am";
+            // var checkTime =
+            //   today.getHours() + hr + minutes + today.getSeconds();
+
             time =
               today.getHours() +
               hr +
@@ -67,9 +71,19 @@ const Dashboard = ({ navigation }) => {
               " " +
               ampm;
 
-            if(time )
+            // var currentT =
+            //   today.getHours() + today.getMinutes() + today.getSeconds();
+            // console.log(" Time ");
+            // console.log(checkTime, currentT);
           } else {
             var ampm = today.getHours() >= 12 ? "pm" : "am";
+
+            // var checkTime =
+            //   today.getHours() +
+            //   today.getMinutes() +
+            //   response.data.duration +
+            //   today.getSeconds();
+
             time =
               today.getHours() +
               ":" +
@@ -78,9 +92,19 @@ const Dashboard = ({ navigation }) => {
               today.getSeconds() +
               " " +
               ampm;
+
+            // var currentT =
+            //   today.getHours() + today.getMinutes() + today.getSeconds();
+            // console.log(" Time ");
+            // console.log(checkTime, currentT);
           }
 
-          setTime(time);
+          if (response.data.duration === 0) {
+            setTime("Completed");
+          } else {
+            setTime(time);
+          }
+
           setLocation(response.data.location);
           setUserName(response.data.firstName);
         })
@@ -89,8 +113,6 @@ const Dashboard = ({ navigation }) => {
         });
     });
   }, []);
-
- 
 
   return (
     <View style={styles.container}>
