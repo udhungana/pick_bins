@@ -6,12 +6,24 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import AsyncStorage from "@react-native-community/async-storage";
 import axios from "axios";
 
+/**
+ *
+ * @param {array} driverTask
+ * @param {integer} totalT
+ * @param {integer} completedT
+ */
+/**
+ *
+ * This screen shows the driver task that needs to be finised in a list view.
+ */
 const DriverScreen = ({ navigation }) => {
   const [driverTask, setDriverTask] = useState([]);
-
   const [totalT, setTotalT] = useState(0);
   const [completedT, setCompletedT] = useState(0);
 
+  /**
+   * Use effects gets token as well as driver task from data base using async storage and axios to show the list.
+   */
   useEffect(() => {
     AsyncStorage.getItem("token").then((response) => {
       console.log("###############");
@@ -24,8 +36,6 @@ const DriverScreen = ({ navigation }) => {
           headers: { Authorization: `Bearer ${response}` },
         })
         .then((response) => {
-          //console.log(response);
-          //setTodos(response.data.path);
           console.log("###############");
           console.log("Driver list from use effect");
           console.log(response.data.path);
@@ -39,6 +49,10 @@ const DriverScreen = ({ navigation }) => {
     });
   }, []);
 
+  /**
+   *
+   * delete item will update the list of driver task after deleting task that are completed by driver
+   */
   const deleteItem = (addr) => {
     setDriverTask(driverTask.filter((item) => item.address !== addr));
 
@@ -67,6 +81,9 @@ const DriverScreen = ({ navigation }) => {
     });
   };
 
+  /**
+   * log's out of the driver screen and deletes the token too.
+   */
   const logoutClicked = () => {
     AsyncStorage.getItem("token").then((response) => {
       console.log("###############");

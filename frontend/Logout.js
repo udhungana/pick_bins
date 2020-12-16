@@ -6,8 +6,18 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import AsyncStorage from "@react-native-community/async-storage";
 import axios from "axios";
 
+/**
+ *
+ * @param {boolean} logginOut -helps keep boolean state of logout clicked
+ */
+/**
+ *
+ * using event listener to navigate to different screen after logout, preventing default behavior of tabnavigator.
+ * token is cleared after logout.
+ */
 function Logout({ navigation }) {
   const [logginOut, setLogginout] = useState(false);
+
   useEffect(() => {
     navigation.addListener("tabPress", (e) => {
       // Prevent default behavior

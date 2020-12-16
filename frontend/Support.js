@@ -1,7 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-
+/**
+ *
+ * This is contact info screen for user to get in touch with technical support
+ */
 const Support = (props) => {
   return (
     <View style={styles.container}>

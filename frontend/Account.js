@@ -1,7 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-
+/**
+ *
+ * Account settings will be changed using this screen.
+ */
 const Account = ({ navigation }) => {
   return (
     <View style={styles.container}>

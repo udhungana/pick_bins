@@ -8,23 +8,12 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-// import DropDownPicker from "react-native-dropdown-picker";
+
 import countryList from "react-select-country-list";
 import axios from "axios";
 
 const SignUpScreen = ({ navigation }) => {
   const options = countryList().getData();
-
-  //const [selectedCountry, setSelectedCountry] = useState("USA");
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [address, setAddress] = useState("");
-  // const [city, setCity] = useState("");
-  // const [zipCode, setZipCode] = useState("");
-  // const [username, setUsername] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setpassword] = useState("");
-  // const [passwordCheck, setcheckPassword] = useState("");
 
   const [first_name, setFirstname] = useState("");
   const [last_name, setLastname] = useState("");
@@ -37,6 +26,9 @@ const SignUpScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
 
+  /**
+   * Handle Submit here sends all the information given by username to databse here using axios after user submits the information.
+   */
   const handleSubmit = () => {
     axios
       .post("http://192.168.1.176:4000/user/signup", {
@@ -55,7 +47,7 @@ const SignUpScreen = ({ navigation }) => {
       })
       .then((response) => {
         console.log(response.data.token);
-        navigation.navigate("SignInScreen");
+        navigation.navigate("SignInScreen"); // navigates to signinscreen after registration
       })
       .catch((err) => {
         console.log(err);
@@ -96,20 +88,7 @@ const SignUpScreen = ({ navigation }) => {
           keyboardType="numeric"
           onChangeText={(val) => setZip(val)}
         />
-        {/* <DropDownPicker
-          items={options}
-          containerStyle={{
-            height: 60,
-            width: 350,
-          }}
-          style={{ backgroundColor: "#DCDCDC" }}
-          itemStyle={{
-            justifyContent: "flex-start",
-          }}
-          dropDownStyle={{ backgroundColor: "#fafafa" }}
-          placeholder="USA"
-          onChangeItem={(item) => setSelectedCountry(item)}
-        /> */}
+
         <TextInput
           style={styles.input}
           placeholder="Country*"

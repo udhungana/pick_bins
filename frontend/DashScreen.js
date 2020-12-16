@@ -10,37 +10,15 @@ import Account from "./Account";
 import SignInScreen from "./SignInScreen";
 import Logout from "./Logout";
 
+/**
+ * creates navigation tab.
+ */
 const Tab = createMaterialBottomTabNavigator();
 
+/**
+ * Dashscreen is used as bottom tab navigator to switch between screens.
+ */
 const DashScreen = () => {
-  // const logoutClicked = ({ navigation }) => {
-  //   useEffect(() => {
-  //     const unsubscribe = navigation.addListener('tabPress', e => {
-  //       // Prevent default behavior
-  //       e.preventDefault()
-  //       AsyncStorage.getItem('token').then((response) => {
-  //         console.log('###############')
-  //         console.log('token from async')
-  //         console.log(response);
-  //         console.log('###############')
-  //         axios
-  //           .post("http://192.168.1.176:4000/user/logout", {}, {
-  //             headers: { Authorization: `Bearer ${response}` },
-  //           })
-  //           .then((response) => {
-  //             console.log(response);
-  //             if (response.status === 200) {
-  //               navigation.navigate("SignInScreen");
-  //             }
-  //           })
-  //           .catch((error) => {
-  //             console.log(error);
-  //           });
-  //       });
-  //     });
-  //   }, []);
-  // };
-
   <View style={styles.container}>
     <Text>DashScreen</Text>
   </View>;
@@ -55,7 +33,6 @@ const DashScreen = () => {
       <Tab.Screen
         name="Dashboard"
         component={Dashboard}
-        //children={() => <Dashboard date={date} time={time} location={location} userName={userName} />}
         options={{
           tabBarLabel: "Home",
           tabBarColor: "white",
@@ -87,7 +64,6 @@ const DashScreen = () => {
         }}
       />
       <Tab.Screen
-        //tabBarOnPress={() => (logoutClicked)}
         name="Logout"
         component={Logout} //{logoutClicked}
         options={{

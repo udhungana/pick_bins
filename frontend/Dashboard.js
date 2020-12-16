@@ -8,15 +8,11 @@ import axios from "axios";
 
 /**
  *
- * @param {*} dateLine
+ * @param {string} date - used to keep date of pickup
+ * @param {string} time - used to keep estimated time of pickup
+ * @param {string} location - used to keep location of pickup of user
  */
 const Dashboard = ({ navigation }) => {
-  var dateLine = "September 20";
-  var timeLine = "5 pm";
-  var locationLine = "1000 Courtside Dr.";
-  var city = "Irving";
-  var state = " Tx";
-
   const [date, setDate] = useState();
 
   const [time, setTime] = useState();
@@ -25,6 +21,9 @@ const Dashboard = ({ navigation }) => {
 
   const [userName, setUserName] = useState();
 
+  /**
+   * Here the use effects gets duration store from database. Here duration from drivers location to users is calculated and shown to user.
+   */
   useEffect(() => {
     var today = new Date(),
       date =
@@ -58,8 +57,6 @@ const Dashboard = ({ navigation }) => {
             );
             var minutes = (today.getMinutes() + response.data.duration) % 60;
             var ampm = hr >= 12 ? "pm" : "am";
-            // var checkTime =
-            //   today.getHours() + hr + minutes + today.getSeconds();
 
             time =
               today.getHours() +
@@ -70,19 +67,8 @@ const Dashboard = ({ navigation }) => {
               today.getSeconds() +
               " " +
               ampm;
-
-            // var currentT =
-            //   today.getHours() + today.getMinutes() + today.getSeconds();
-            // console.log(" Time ");
-            // console.log(checkTime, currentT);
           } else {
             var ampm = today.getHours() >= 12 ? "pm" : "am";
-
-            // var checkTime =
-            //   today.getHours() +
-            //   today.getMinutes() +
-            //   response.data.duration +
-            //   today.getSeconds();
 
             time =
               today.getHours() +
@@ -92,11 +78,6 @@ const Dashboard = ({ navigation }) => {
               today.getSeconds() +
               " " +
               ampm;
-
-            // var currentT =
-            //   today.getHours() + today.getMinutes() + today.getSeconds();
-            // console.log(" Time ");
-            // console.log(checkTime, currentT);
           }
 
           if (response.data.duration === 0) {
@@ -172,43 +153,6 @@ const Dashboard = ({ navigation }) => {
           <View style={{ flexDirection: "row", textAlign: "center" }}></View>
         </View>
       </Card>
-
-      {/* <View style={{ flex: 0.2, alignItems: "center" }}>
-        <Text
-          style={{
-            textAlign: "center",
-            fontSize: 20,
-            fontWeight: "bold",
-            color: "#00A600",
-          }}
-        >
-          Missed Your Pickup?
-        </Text>
-        <Text
-          style={{
-            textAlign: "center",
-            fontSize: 13,
-            fontWeight: "bold",
-            color: "#00C100",
-          }}
-        >
-          Don't worry {"\n"}Just Send us a Pick Up Request
-        </Text>
-        <TouchableOpacity
-          onPress={() => handleSubmit()}
-          style={styles.pickUpButton}
-        >
-          <Text
-            style={{
-              color: "white",
-              fontSize: 15,
-              textAlign: "center",
-            }}
-          >
-            Pick Up Request
-          </Text>
-        </TouchableOpacity>
-      </View> */}
     </View>
   );
 };
