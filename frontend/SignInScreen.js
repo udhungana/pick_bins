@@ -11,29 +11,24 @@ import {
 import Assets from "./components/Assets";
 import axios from "axios";
 
+/**
+ *
+ * @param {maintain state of email } email
+ * @param {maintains state of password} password
+ * @param {check if the login info is a driver} isDriver
+ * @param {used to check login times clicked} check
+ */
+
 const SignInScreen = ({ navigation }) => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [isDriver, setIsDriver] = useState(false);
   const [check, setCheck] = useState(0);
 
-  // const storeToken = async (user)=>{
-  //   try {
-  //      await AsyncStorage.setItem("token", JSON.stringify(user._response.token));
-  //   } catch (error) {
-  //     console.log("Something went wrong", error);
-  //   }
-  // }
-  // const getToken = async (user) =>{
-  //   try {
-  //     let userData = await AsyncStorage.getItem("token");
-  //     let data = JSON.parse(userData);
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.log("Something went wrong", error);
-  //   }
-  // }
-
+  /**
+   *
+   * handles submit for login information, gets email and password and sends to database for verification
+   */
   const handleSubmit = (event) => {
     axios
       //.post("http://192.168.1.176:4000/user/login",    himal pat ko
@@ -47,10 +42,6 @@ const SignInScreen = ({ navigation }) => {
         console.log(response);
         setCheck((check) => check + 1);
       });
-
-    // AsyncStorage.getItem('token').then((response)=>{
-    //   console.log(response);
-    // })
   };
 
   useEffect(() => {
@@ -61,7 +52,6 @@ const SignInScreen = ({ navigation }) => {
         navigation.navigate("DashScreen");
       }
     }
-    //console.log('use effect isDriver ' + isDriver);
   }, [isDriver, check]);
 
   return (
