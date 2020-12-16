@@ -13,10 +13,10 @@ import axios from "axios";
 
 /**
  *
- * @param {maintain state of email } email
- * @param {maintains state of password} password
- * @param {check if the login info is a driver} isDriver
- * @param {used to check login times clicked} check
+ * @param { String} email- maintain state of email
+ * @param {password} password - maintains state of password
+ * @param {bool} isDriver -check if the login info is a driver
+ * @param {bool} check -used to check login times clicked
  */
 
 const SignInScreen = ({ navigation }) => {
