@@ -10,7 +10,7 @@ import axios from "axios";
  *
  * @param {string} date - used to keep date of pickup
  * @param {string} time - used to keep estimated time of pickup
- * @param {string} location - used to keep location of pickup of user
+ * @param {string} location - used to keep user's pickup location
  */
 const Dashboard = ({ navigation }) => {
   const [date, setDate] = useState();
