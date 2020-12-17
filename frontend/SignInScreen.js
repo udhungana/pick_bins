@@ -79,7 +79,7 @@ const SignInScreen = ({ navigation }) => {
       >
         <Assets />
         <Text style={{ color: "#00A600", fontSize: 30, fontWeight: "bold" }}>
-          Pick Bins
+          Pick Bins!!!!!
         </Text>
       </View>
       <View style={{ margin: 20, padding: 10 }}>

@@ -2,26 +2,12 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card } from "react-native-paper";
-// import {
-//   Table,
-//   TableWrapper,
-//   Row,
-//   Rows,
-//   Col,
-//   Cols,
-//   Cell,
-// } from "react-native-table-component";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 const Dashboard = ({ navigation }) => {
   //const Dashboard = (props) => {
-
-  var dateLine = "September 20";
-  var timeLine = "5 pm";
-  var locationLine = "1000 Courtside Dr.";
-  var city = "Irving";
-  var state = " Tx";
 
   const [date, setDate] = useState();
 
@@ -98,11 +84,33 @@ const Dashboard = ({ navigation }) => {
   //   //navigation.navigate("Pickup");
   // };
 
+  const logoutClicked = () => {
+    AsyncStorage.getItem('token').then((response) => {
+      console.log('###############')
+      console.log('token from async')
+      console.log(response);
+      console.log('###############')
+      axios
+        .post("http://192.168.1.176:4000/user/logout", {}, {
+          headers: { Authorization: `Bearer ${response}` },
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            navigation.navigate("SignInScreen");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 20, fontWeight: "bold", margin: 5 }}>Hello!</Text>
-      <Text style={{ fontSize: 20, fontWeight: "bold", margin: 5 }}>{userName}!</Text>
-      <Text style={{ fontSize: 18, fontWeight: "bold", margin: 5 }}>
+      <Text style={{ fontSize: 20, fontWeight: "bold", margin: 5, color: "green" }}>Hello!</Text>
+      <Text style={{ fontSize: 20, fontWeight: "bold", margin: 5, color: "green" }}>{userName}!</Text>
+      <Text style={{ fontSize: 18, fontWeight: "bold", margin: 5, color: "green" }}>
         Your next pickup is scheduled for:
       </Text>
       <Card style={styles.cardDesign}>
@@ -144,6 +152,25 @@ const Dashboard = ({ navigation }) => {
           </View>
         </View>
       </Card>
+      <View
+        style={{
+          flex: 0.1,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          marginLeft: 5,
+          marginRight: 10,
+          marginTop: 5,
+        }}
+      >
+        <TouchableOpacity
+          style={{ flex: 1, flexDirection: "row" }}
+          onPress={() => logoutClicked()}
+        >
+          <MaterialCommunityIcons name="logout" color="red" size={20} />
+          <Text style={{ color: "red" }}>Logout</Text>
+        </TouchableOpacity>
+      </View>
 
       {/* <View style={{ flex: 0.2, alignItems: "center" }}>
         <Text
