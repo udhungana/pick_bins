@@ -8,7 +8,11 @@ import Pickup from "./Pickup";
 import Support from "./Support";
 import Account from "./Account";
 import SignInScreen from "./SignInScreen";
+import Logout from "./Logout";
 
+/**
+ * creates navigation tab.
+ */
 const Tab = createMaterialBottomTabNavigator();
 
 const logoutClicked = ({ navigation }) => {
@@ -39,10 +43,10 @@ const logoutClicked = ({ navigation }) => {
   }, []);
 };
 
-
+/**
+ * Dashscreen is used as bottom tab navigator to switch between screens.
+ */
 const DashScreen = () => {
-
-
   <View style={styles.container}>
     <Text>DashScreen</Text>
   </View>;
@@ -57,7 +61,6 @@ const DashScreen = () => {
       <Tab.Screen
         name="Dashboard"
         component={Dashboard}
-        //children={() => <Dashboard date={date} time={time} location={location} userName={userName} />}
         options={{
           tabBarLabel: "Home",
           tabBarColor: "white",
@@ -91,7 +94,7 @@ const DashScreen = () => {
       <Tab.Screen
         tabBarOnPress={() => (logoutClicked)}
         name="Logout"
-        component={""}//{logoutClicked}
+        component={Logout} //{logoutClicked}
         options={{
           tabBarLabel: "Logout",
           tabBarColor: "white",

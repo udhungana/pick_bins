@@ -4,7 +4,9 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import Rootnavigation from "./Rootnavigation";
 
-//const Stack = createStackNavigator();
+/**
+ * Initial start page which calls root navigation component that regulates navigation between screens.
+ */
 
 function App() {
   return (

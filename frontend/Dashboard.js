@@ -9,6 +9,12 @@ import axios from 'axios';
 const Dashboard = ({ navigation }) => {
   //const Dashboard = (props) => {
 
+  /**
+   *
+   * @param {string} date - used to keep date of pickup
+   * @param {string} time - used to keep estimated time of pickup
+   * @param {string} location - used to keep user's pickup location
+   */
   const [date, setDate] = useState();
 
   const [time, setTime] = useState();
@@ -17,10 +23,10 @@ const Dashboard = ({ navigation }) => {
 
   const [userName, setUserName] = useState();
 
-  //const [dashboardClicked, setDashboardClicked] = useState(0);
-
+  /**
+   * Here the use effects gets duration store from database. Here duration from drivers location to users is calculated and shown to user.
+   */
   useEffect(() => {
-
     var today = new Date(),
       date =
         today.getFullYear() +
@@ -30,27 +36,30 @@ const Dashboard = ({ navigation }) => {
         today.getDate();
     setDate(date);
 
-    AsyncStorage.getItem('token').then((response) => {
-      console.log('###############')
-      console.log('token from async')
+    AsyncStorage.getItem("token").then((response) => {
+      console.log("###############");
+      console.log("token from async");
       console.log(response);
-      console.log('###############')
+      console.log("###############");
 
       axios
-        .get("http://192.168.1.176:4000/getSchedule", {
+        //.get("http://192.168.1.176:4000/getSchedule", {   himal ko
+        .get("http://192.168.1.228:4000/getSchedule", {
           headers: { Authorization: `Bearer ${response}` },
         })
         .then((response) => {
-          console.log('###############')
+          console.log("###############");
           console.log(response.data);
-          console.log('###############')
+          console.log("###############");
           var time = 0;
+
           if (today.getMinutes() + response.data.duration >= 60) {
             var hr = Math.floor(
               (today.getMinutes() + response.data.duration) / 60
             );
             var minutes = (today.getMinutes() + response.data.duration) % 60;
             var ampm = hr >= 12 ? "pm" : "am";
+
             time =
               today.getHours() +
               hr +
@@ -58,26 +67,34 @@ const Dashboard = ({ navigation }) => {
               minutes +
               ":" +
               today.getSeconds() +
+              " " +
               ampm;
           } else {
             var ampm = today.getHours() >= 12 ? "pm" : "am";
+
             time =
               today.getHours() +
               ":" +
               (today.getMinutes() + response.data.duration) +
               ":" +
               today.getSeconds() +
+              " " +
               ampm;
           }
 
-          setTime(time);
+          if (response.data.duration === 0) {
+            setTime("Completed");
+          } else {
+            setTime(time);
+          }
+
           setLocation(response.data.location);
           setUserName(response.data.firstName);
         })
         .catch((error) => {
           console.log(error);
         });
-    })
+    });
   }, []);
 
   // const handleSubmit = () => {
@@ -120,6 +137,7 @@ const Dashboard = ({ navigation }) => {
             justifyContent: "flex-start",
             flexDirection: "row",
             height: 50,
+            marginTop: 10,
           }}
         >
           <Text style={styles.textDesign}>Date: </Text>
@@ -133,8 +151,8 @@ const Dashboard = ({ navigation }) => {
             height: 50,
           }}
         >
-          <Text style={styles.textDesign}>Time:</Text>
-          <Text style={styles.rightMargin}> {time}</Text>
+          <Text style={styles.textDesign}>ETA:</Text>
+          <Text style={styles.rightMargin}>{time}</Text>
         </View>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <View
@@ -142,14 +160,17 @@ const Dashboard = ({ navigation }) => {
               alignItems: "center",
               justifyContent: "flex-start",
               flexDirection: "row",
+              flex: 1,
               height: 50,
             }}
           >
             <Text style={styles.textDesign}>Location:</Text>
-            <Text style={styles.rightMargin}> {location}</Text>
+            <Text style={{ marginLeft: 10, textAlign: "left", flex: 1 }}>
+              {" "}
+              {location}
+            </Text>
           </View>
-          <View style={{ flexDirection: "row", textAlign: "center" }}>
-          </View>
+          <View style={{ flexDirection: "row", textAlign: "center" }}></View>
         </View>
       </Card>
       <View
@@ -208,7 +229,7 @@ const Dashboard = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View> */}
-    </View>
+    </View >
   );
 };
 export default Dashboard;
@@ -220,21 +241,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   cardDesign: {
-    flex: 0.3,
+    flex: 0.4,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    padding: 24,
-    margin: 30,
+    padding: 10,
+    margin: 15,
     flexWrap: "wrap",
   },
   textDesign: {
     textAlign: "left",
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: "bold",
   },
   rightMargin: {
-    marginLeft: 70,
+    marginLeft: 50,
+    textAlign: "left",
   },
   box: {
     height: 50,

@@ -3,55 +3,77 @@ import { View, Text, StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import AsyncStorage from '@react-native-community/async-storage';
-import axios from 'axios';
+import AsyncStorage from "@react-native-community/async-storage";
+import axios from "axios";
 
+/**
+ *
+ * @param {array} driverTask
+ * @param {integer} totalT
+ * @param {integer} completedT
+ */
+/**
+ *
+ * This screen shows the driver task that needs to be finised in a list view.
+ */
 const DriverScreen = ({ navigation }) => {
   const [driverTask, setDriverTask] = useState([]);
+  const [totalT, setTotalT] = useState(0);
+  const [completedT, setCompletedT] = useState(0);
 
-  var totalT = 6;
-  var completedT = 4;
-  var remainingT = 2;
-
+  /**
+   * Use effects gets token as well as driver task from data base using async storage and axios to show the list.
+   */
   useEffect(() => {
-    AsyncStorage.getItem('token').then((response) => {
-      console.log('###############')
-      console.log('token from async')
+    AsyncStorage.getItem("token").then((response) => {
+      console.log("###############");
+      console.log("token from async");
       console.log(response);
-      console.log('###############')
+      console.log("###############");
       axios
-        .get("http://192.168.1.176:4000/getTask", {
+        //.get("http://192.168.1.176:4000/getTask", {     himal pat ko
+        .get("http://192.168.1.228:4000/getTask", {
           headers: { Authorization: `Bearer ${response}` },
         })
         .then((response) => {
-          //console.log(response);
-          //setTodos(response.data.path);
-          console.log('###############')
-          console.log('Driver list from use effect')
-          console.log(response.data.path)
-          setDriverTask(response.data.path)
-          console.log('###############')
+          console.log("###############");
+          console.log("Driver list from use effect");
+          console.log(response.data.path);
+          setDriverTask(response.data.path);
+          setTotalT(response.data.path.length);
+          console.log("###############");
         })
         .catch((error) => {
           console.log(error);
         });
-    })
+    });
   }, []);
 
+  /**
+   *
+   * delete item will update the list of driver task after deleting task that are completed by driver
+   */
   const deleteItem = (addr) => {
     setDriverTask(driverTask.filter((item) => item.address !== addr));
+
     //updating location of driver location
-    AsyncStorage.getItem('token').then((response) => {
-      console.log('###############')
-      console.log('token from async')
+    AsyncStorage.getItem("token").then((response) => {
+      console.log("###############");
+      console.log("token from async");
       console.log(response);
-      console.log('###############')
+      console.log("###############");
       axios
-        .post("http://192.168.1.176:4000/updateDriverLocation", { current_location: addr }, {
-          headers: { Authorization: `Bearer ${response}` },
-        })
+        //.post("http://192.168.1.176:4000/updateDriverLocation",     himal ko
+        .post(
+          "http://192.168.1.228:4000/updateDriverLocation",
+          { current_location: addr },
+          {
+            headers: { Authorization: `Bearer ${response}` },
+          }
+        )
         .then((response) => {
           console.log(response);
+          setCompletedT((completedT) => completedT + 1);
         })
         .catch((error) => {
           console.log(error);
@@ -59,16 +81,24 @@ const DriverScreen = ({ navigation }) => {
     });
   };
 
+  /**
+   * log's out of the driver screen and deletes the token too.
+   */
   const logoutClicked = () => {
-    AsyncStorage.getItem('token').then((response) => {
-      console.log('###############')
-      console.log('token from async')
+    AsyncStorage.getItem("token").then((response) => {
+      console.log("###############");
+      console.log("token from async");
       console.log(response);
-      console.log('###############')
+      console.log("###############");
       axios
-        .post("http://192.168.1.176:4000/user/logout", {}, {
-          headers: { Authorization: `Bearer ${response}` },
-        })
+        //.post("http://192.168.1.176:4000/user/logout",
+        .post(
+          "http://192.168.1.228:4000/user/logout",
+          {},
+          {
+            headers: { Authorization: `Bearer ${response}` },
+          }
+        )
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
@@ -94,6 +124,7 @@ const DriverScreen = ({ navigation }) => {
           style={{
             width: 400,
             height: 600,
+            marginTop: 20,
           }}
         >
           {driverTask.map((d, index) => {
@@ -134,7 +165,7 @@ const DriverScreen = ({ navigation }) => {
                   <Text
                     style={{
                       fontSize: 13,
-                      height: 30,
+                      height: 60,
                       alignSelf: "flex-start",
                       fontWeight: "bold",
                       marginLeft: 5,
@@ -152,7 +183,10 @@ const DriverScreen = ({ navigation }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <TouchableOpacity onPress={() => deleteItem(d.address)} style={styles.tickButton}>
+                  <TouchableOpacity
+                    onPress={() => deleteItem(d.address)}
+                    style={styles.tickButton}
+                  >
                     <MaterialCommunityIcons
                       name="check"
                       color="#00A600"
@@ -194,7 +228,7 @@ const DriverScreen = ({ navigation }) => {
               Completed: {"\t\t\t"} {completedT}
             </Text>
             <Text style={styles.textDesign}>
-              Remaining: {"\t\t\t"} {remainingT}
+              Remaining: {"\t\t\t"} {driverTask.length}
             </Text>
           </View>
 
@@ -248,7 +282,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 50,
+    marginTop: 60,
     // backgroundColor: "white",
   },
   cardDesign: {

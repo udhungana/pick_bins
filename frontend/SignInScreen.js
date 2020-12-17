@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from "@react-native-community/async-storage";
 import {
   TouchableOpacity,
   View,
@@ -9,8 +9,15 @@ import {
 } from "react-native";
 
 import Assets from "./components/Assets";
-import axios from 'axios';
+import axios from "axios";
 
+/**
+ *
+ * @param { String} email- maintain state of email
+ * @param {password} password - maintains state of password
+ * @param {bool} isDriver -check if the login info is a driver
+ * @param {bool} check -used to check login times clicked
+ */
 
 const SignInScreen = ({ navigation }) => {
   const [email, setemail] = useState("");
@@ -18,39 +25,23 @@ const SignInScreen = ({ navigation }) => {
   const [isDriver, setIsDriver] = useState(false);
   const [check, setCheck] = useState(0);
 
-  // const storeToken = async (user)=>{
-  //   try {
-  //      await AsyncStorage.setItem("token", JSON.stringify(user._response.token));
-  //   } catch (error) {
-  //     console.log("Something went wrong", error);
-  //   }
-  // }
-  // const getToken = async (user) =>{
-  //   try {
-  //     let userData = await AsyncStorage.getItem("token");
-  //     let data = JSON.parse(userData);
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.log("Something went wrong", error);
-  //   }
-  // }
-
+  /**
+   *
+   * handles submit for login information, gets email and password and sends to database for verification
+   */
   const handleSubmit = (event) => {
-
-    axios.post("http://192.168.1.176:4000/user/login",
-      {
+    axios
+      //.post("http://192.168.1.176:4000/user/login",    himal pat ko
+      .post("http://192.168.1.228:4000/user/login", {
         email,
-        password
-      }).then((response) => {
-        AsyncStorage.setItem('token', response['data']["token"]);
+        password,
+      })
+      .then((response) => {
+        AsyncStorage.setItem("token", response["data"]["token"]);
         setIsDriver(response.data.isDriver);
         console.log(response);
-        setCheck(check => check + 1)
-      })
-
-    // AsyncStorage.getItem('token').then((response)=>{
-    //   console.log(response);
-    // })
+        setCheck((check) => check + 1);
+      });
   };
 
   useEffect(() => {
@@ -61,7 +52,6 @@ const SignInScreen = ({ navigation }) => {
         navigation.navigate("DashScreen");
       }
     }
-    //console.log('use effect isDriver ' + isDriver);
   }, [isDriver, check]);
 
   return (
@@ -71,7 +61,7 @@ const SignInScreen = ({ navigation }) => {
         flexDirection: "column",
         backgroundColor: "white",
         alignItems: "center",
-        marginTop: 0,
+        marginTop: 50,
       }}
     >
       <View
