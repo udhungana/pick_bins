@@ -28,12 +28,10 @@ function Logout({ navigation }) {
         console.log(response);
         console.log("###############");
         axios
-          .post(
-            "http://192.168.1.228:4000/user/logout",
-            {},
-            {
-              headers: { Authorization: `Bearer ${response}` },
-            }
+          //.post("http://192.168.1.228:4000/user/logout",
+          .post("http://192.168.1.176:4000/user/logout", {}, {
+            headers: { Authorization: `Bearer ${response}` },
+          }
           )
           .then((response) => {
             console.log(response);

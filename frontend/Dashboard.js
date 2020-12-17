@@ -43,8 +43,8 @@ const Dashboard = ({ navigation }) => {
       console.log("###############");
 
       axios
-        //.get("http://192.168.1.176:4000/getSchedule", {   himal ko
-        .get("http://192.168.1.228:4000/getSchedule", {
+        .get("http://192.168.1.176:4000/getSchedule", {   //himal ko
+          //.get("http://192.168.1.228:4000/getSchedule", {
           headers: { Authorization: `Bearer ${response}` },
         })
         .then((response) => {
@@ -101,27 +101,27 @@ const Dashboard = ({ navigation }) => {
   //   //navigation.navigate("Pickup");
   // };
 
-  const logoutClicked = () => {
-    AsyncStorage.getItem('token').then((response) => {
-      console.log('###############')
-      console.log('token from async')
-      console.log(response);
-      console.log('###############')
-      axios
-        .post("http://192.168.1.176:4000/user/logout", {}, {
-          headers: { Authorization: `Bearer ${response}` },
-        })
-        .then((response) => {
-          console.log(response);
-          if (response.status === 200) {
-            navigation.navigate("SignInScreen");
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    });
-  };
+  // const logoutClicked = () => {
+  //   AsyncStorage.getItem('token').then((response) => {
+  //     console.log('###############')
+  //     console.log('token from async')
+  //     console.log(response);
+  //     console.log('###############')
+  //     axios
+  //       .post("http://192.168.1.176:4000/user/logout", {}, {
+  //         headers: { Authorization: `Bearer ${response}` },
+  //       })
+  //       .then((response) => {
+  //         console.log(response);
+  //         if (response.status === 200) {
+  //           navigation.navigate("SignInScreen");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   });
+  // };
 
   return (
     <View style={styles.container}>
@@ -173,7 +173,7 @@ const Dashboard = ({ navigation }) => {
           <View style={{ flexDirection: "row", textAlign: "center" }}></View>
         </View>
       </Card>
-      <View
+      {/* <View
         style={{
           flex: 0.1,
           flexDirection: "row",
@@ -191,7 +191,7 @@ const Dashboard = ({ navigation }) => {
           <MaterialCommunityIcons name="logout" color="red" size={20} />
           <Text style={{ color: "red" }}>Logout</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       {/* <View style={{ flex: 0.2, alignItems: "center" }}>
         <Text

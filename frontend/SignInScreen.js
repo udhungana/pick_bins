@@ -31,8 +31,8 @@ const SignInScreen = ({ navigation }) => {
    */
   const handleSubmit = (event) => {
     axios
-      //.post("http://192.168.1.176:4000/user/login",    himal pat ko
-      .post("http://192.168.1.228:4000/user/login", {
+      .post("http://192.168.1.176:4000/user/login", {   // himal's
+        //.post("http://192.168.1.228:4000/user/login", {
         email,
         password,
       })

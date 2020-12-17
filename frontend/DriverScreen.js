@@ -31,8 +31,8 @@ const DriverScreen = ({ navigation }) => {
       console.log(response);
       console.log("###############");
       axios
-        //.get("http://192.168.1.176:4000/getTask", {     himal pat ko
-        .get("http://192.168.1.228:4000/getTask", {
+        .get("http://192.168.1.176:4000/getTask", { //himal's
+          //.get("http://192.168.1.228:4000/getTask", {
           headers: { Authorization: `Bearer ${response}` },
         })
         .then((response) => {
@@ -63,9 +63,8 @@ const DriverScreen = ({ navigation }) => {
       console.log(response);
       console.log("###############");
       axios
-        //.post("http://192.168.1.176:4000/updateDriverLocation",     himal ko
-        .post(
-          "http://192.168.1.228:4000/updateDriverLocation",
+        .post("http://192.168.1.176:4000/updateDriverLocation",     //himal ko
+          //.post("http://192.168.1.228:4000/updateDriverLocation",
           { current_location: addr },
           {
             headers: { Authorization: `Bearer ${response}` },
@@ -91,9 +90,8 @@ const DriverScreen = ({ navigation }) => {
       console.log(response);
       console.log("###############");
       axios
-        //.post("http://192.168.1.176:4000/user/logout",
-        .post(
-          "http://192.168.1.228:4000/user/logout",
+        .post("http://192.168.1.176:4000/user/logout",
+          //.post("http://192.168.1.228:4000/user/logout",
           {},
           {
             headers: { Authorization: `Bearer ${response}` },
