@@ -2,17 +2,19 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Card } from "react-native-paper";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-import AsyncStorage from "@react-native-community/async-storage";
-import axios from "axios";
-
-/**
- *
- * @param {string} date - used to keep date of pickup
- * @param {string} time - used to keep estimated time of pickup
- * @param {string} location - used to keep user's pickup location
- */
+import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 const Dashboard = ({ navigation }) => {
+  //const Dashboard = (props) => {
+
+  /**
+   *
+   * @param {string} date - used to keep date of pickup
+   * @param {string} time - used to keep estimated time of pickup
+   * @param {string} location - used to keep user's pickup location
+   */
   const [date, setDate] = useState();
 
   const [time, setTime] = useState();
@@ -95,19 +97,37 @@ const Dashboard = ({ navigation }) => {
     });
   }, []);
 
+  // const handleSubmit = () => {
+  //   //navigation.navigate("Pickup");
+  // };
+
+  const logoutClicked = () => {
+    AsyncStorage.getItem('token').then((response) => {
+      console.log('###############')
+      console.log('token from async')
+      console.log(response);
+      console.log('###############')
+      axios
+        .post("http://192.168.1.176:4000/user/logout", {}, {
+          headers: { Authorization: `Bearer ${response}` },
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            navigation.navigate("SignInScreen");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <Text
-        style={{ fontSize: 30, fontWeight: "bold", margin: 5, color: "green" }}
-      >
-        Hello,
-      </Text>
-      <Text
-        style={{ fontSize: 30, fontWeight: "bold", margin: 5, color: "green" }}
-      >
-        {userName}!
-      </Text>
-      <Text style={{ fontSize: 18, margin: 5, color: "green" }}>
+      <Text style={{ fontSize: 20, fontWeight: "bold", margin: 5, color: "green" }}>Hello!</Text>
+      <Text style={{ fontSize: 20, fontWeight: "bold", margin: 5, color: "green" }}>{userName}!</Text>
+      <Text style={{ fontSize: 18, fontWeight: "bold", margin: 5, color: "green" }}>
         Your next pickup is scheduled for:
       </Text>
       <Card style={styles.cardDesign}>
@@ -153,7 +173,63 @@ const Dashboard = ({ navigation }) => {
           <View style={{ flexDirection: "row", textAlign: "center" }}></View>
         </View>
       </Card>
-    </View>
+      <View
+        style={{
+          flex: 0.1,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          marginLeft: 5,
+          marginRight: 10,
+          marginTop: 5,
+        }}
+      >
+        <TouchableOpacity
+          style={{ flex: 1, flexDirection: "row" }}
+          onPress={() => logoutClicked()}
+        >
+          <MaterialCommunityIcons name="logout" color="red" size={20} />
+          <Text style={{ color: "red" }}>Logout</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* <View style={{ flex: 0.2, alignItems: "center" }}>
+        <Text
+          style={{
+            textAlign: "center",
+            fontSize: 20,
+            fontWeight: "bold",
+            color: "#00A600",
+          }}
+        >
+          Missed Your Pickup?
+        </Text>
+        <Text
+          style={{
+            textAlign: "center",
+            fontSize: 13,
+            fontWeight: "bold",
+            color: "#00C100",
+          }}
+        >
+          Don't worry {"\n"}Just Send us a Pick Up Request
+        </Text>
+        <TouchableOpacity
+          onPress={() => handleSubmit()}
+          style={styles.pickUpButton}
+        >
+          <Text
+            style={{
+              color: "white",
+              fontSize: 15,
+              textAlign: "center",
+            }}
+          >
+            Pick Up Request
+          </Text>
+        </TouchableOpacity>
+      </View> */}
+    </View >
   );
 };
 export default Dashboard;

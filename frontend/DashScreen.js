@@ -15,6 +15,34 @@ import Logout from "./Logout";
  */
 const Tab = createMaterialBottomTabNavigator();
 
+const logoutClicked = ({ navigation }) => {
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('tabPress', e => {
+      // Prevent default behavior
+      e.preventDefault()
+      AsyncStorage.getItem('token').then((response) => {
+        console.log('###############')
+        console.log('token from async')
+        console.log(response);
+        console.log('###############')
+        axios
+          .post("http://192.168.1.176:4000/user/logout", {}, {
+            headers: { Authorization: `Bearer ${response}` },
+          })
+          .then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+              navigation.navigate("SignInScreen");
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+    });
+  }, []);
+};
+
 /**
  * Dashscreen is used as bottom tab navigator to switch between screens.
  */
@@ -64,6 +92,7 @@ const DashScreen = () => {
         }}
       />
       <Tab.Screen
+        tabBarOnPress={() => (logoutClicked)}
         name="Logout"
         component={Logout} //{logoutClicked}
         options={{
